@@ -21,7 +21,7 @@ class m180406_124935_create_classrooms_table extends Migration
         $this->createTable('classrooms', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'description' => $this->string()->notNull(),
+            'description' => $this->string(),
         ], $tableOptions);
     }
 
