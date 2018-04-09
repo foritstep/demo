@@ -16,13 +16,19 @@ class m180408_174822_create_courses_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+        }
+        
         $this->createTable('courses', [
             'id' => $this->primaryKey(),
             'group_id' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
             'teacher_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
-        ]);
+        ], $tableOptions);
 
         // creates index for column `group_id`
         $this->createIndex(
