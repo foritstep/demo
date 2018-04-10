@@ -64,6 +64,28 @@ class Courses extends \yii\db\ActiveRecord
             ])->one()->delete();
         }
     }
+
+    public static function intersect() {
+        $res = Schedules::find()
+            ->select(['COUNT(`classroom_id`) AS `count`, `day`, `number`'])
+            ->having('`count` > 1')
+            ->groupBy(['number', 'day'])
+            ->all();
+        if($res) {
+            $acc = [];
+            foreach($res as $i) {
+                $acc_ = [];
+                foreach(Schedules::find()->where([
+                    'number' => $i->number,
+                    'day' => $i->day,
+                ])->all() as $j) {
+                    $acc_[] = $j;
+                }
+                $acc[] = $acc_;
+            }
+            return $acc;
+        }
+    }
     
     /**
      * @inheritdoc
@@ -95,9 +117,9 @@ class Courses extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'group_id' => 'Group ID',
-            'name' => 'Name',
+            'name' => 'Название',
             'teacher_id' => 'Teacher ID',
-            'quantity' => 'Quantity',
+            'quantity' => 'Количество занятий',
         ];
     }
 
@@ -131,5 +153,15 @@ class Courses extends \yii\db\ActiveRecord
     public function getSchedules()
     {
         return $this->hasMany(Schedules::className(), ['course_id' => 'id']);
+    }
+
+    public function getCourseName()
+    {
+        return $this->getGroup()->one()->name;
+    }
+
+    public function getTeacherName()
+    {
+        return $this->getTeacher()->one()->name;
     }
 }

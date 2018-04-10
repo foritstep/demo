@@ -13,5 +13,4 @@ $this->title = 'My Yii Application';
     <a href="<?= Url::toRoute('group/index') ?>" class="btn btn-primary active" role="button">Классы</a>
     <a href="<?= Url::toRoute('student/index') ?>" class="btn btn-primary active" role="button">Студенты</a>
     <a href="<?= Url::toRoute('teacher/index') ?>" class="btn btn-primary active" role="button">Преподаватели</a>
-    <a href="<?= Url::toRoute('schedule/index') ?>" class="btn btn-primary active" role="button">Расписание</a>
 </div>

@@ -6,6 +6,7 @@ use Yii;
 use app\models\Courses;
 use app\models\Schedules;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -115,14 +116,27 @@ class CourseController extends Controller
 
         if(Yii::$app->request->post()) {
             $model->schedule = Yii::$app->request->post()['arr'];
-        }
-
-        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        }*/
+        }
 
         return $this->render('schedule', [
             'model' => $model,
+        ]);
+    }
+
+    public static function intersect() {
+        if($data = Courses::intersect()) {
+            Yii::$app->session->setFlash('error', 
+                Html::a("Пересечение графиков", ['intersect'])
+            );
+        }
+    }
+
+    public function actionIntersect() {
+        $data = Courses::intersect();
+
+        return $this->render('intersect', [
+            'data' => $data,
         ]);
     }
 

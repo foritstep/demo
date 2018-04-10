@@ -18,6 +18,8 @@ use Yii;
  */
 class Schedules extends \yii\db\ActiveRecord
 {
+    public $count;
+    
     /**
      * @inheritdoc
      */
