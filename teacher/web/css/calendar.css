@@ -1,0 +1,9 @@
+.calendar-day {
+    box-shadow: 0 0 0px 1px slategray;
+    margin: 1px;
+}
+
+.datepicker table {
+    border-collapse: separate;
+    border-spacing: 5px 5px;  
+}

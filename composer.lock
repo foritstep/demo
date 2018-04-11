@@ -4,8 +4,69 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "283161fa26b3520787986109293d8165",
+    "content-hash": "7c1619b97468e7a90f7044dd49e76e23",
     "packages": [
+        {
+            "name": "2amigos/yii2-date-picker-widget",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-date-picker-widget.git",
+                "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-date-picker-widget/zipball/d09c2444e8c2329e38528bba77002dd65186c1ff",
+                "reference": "d09c2444e8c2329e38528bba77002dd65186c1ff",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap-datepicker": "1.7.0",
+                "yiisoft/yii2": ">=2.0.9",
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\datepicker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Bootstrap DatePicker widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/bootstrap-datepicker",
+            "keywords": [
+                "2amigos",
+                "datepicker",
+                "extension",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2017-07-05T05:52:03+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",
@@ -26,6 +87,28 @@
             "type": "bower-asset",
             "license": [
                 "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/bootstrap-datepicker",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uxsolutions/bootstrap-datepicker.git",
+                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uxsolutions/bootstrap-datepicker/zipball/d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+                "reference": "d364be5b066b38f3675a5a1dc174ce1ab1f3360e",
+                "shasum": null
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.7.1,<4.0.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "Apache-2.0"
             ]
         },
         {
@@ -712,6 +795,68 @@
     ],
     "packages-dev": [
         {
+            "name": "2amigos/yii2-date-time-picker-widget",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-date-time-picker-widget.git",
+                "reference": "721a23e245b3b2a5ca2669e9a35a4ebdab321c8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-date-time-picker-widget/zipball/721a23e245b3b2a5ca2669e9a35a4ebdab321c8c",
+                "reference": "721a23e245b3b2a5ca2669e9a35a4ebdab321c8c",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/smalot-bootstrap-datetimepicker": "2.4.4",
+                "yiisoft/yii2": "~2.0",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\datetimepicker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Bootstrap DateTimePicker widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/bootstrap-datetimepicker",
+            "keywords": [
+                "2amigos",
+                "DateTimePicker",
+                "extension",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2017-07-05T05:38:36+00:00"
+        },
+        {
             "name": "behat/gherkin",
             "version": "v4.5.1",
             "source": {
@@ -769,6 +914,87 @@
                 "parser"
             ],
             "time": "2017-08-30T11:04:43+00:00"
+        },
+        {
+            "name": "bower-asset/eonasdan-bootstrap-datetimepicker",
+            "version": "4.17.47",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:Eonasdan/bootstrap-datetimepicker.git",
+                "reference": "25c11d79e614bc6463a87c3dd9cbf8280422e006"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Eonasdan/bootstrap-datetimepicker/zipball/25c11d79e614bc6463a87c3dd9cbf8280422e006",
+                "reference": "25c11d79e614bc6463a87c3dd9cbf8280422e006",
+                "shasum": null
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8.3",
+                "bower-asset/moment": ">=2.10.5"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/moment",
+            "version": "2.22.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moment/moment.git",
+                "reference": "db71a655fc51fe58009675608a400d0d4cd0ca87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moment/moment/zipball/db71a655fc51fe58009675608a400d0d4cd0ca87",
+                "reference": "db71a655fc51fe58009675608a400d0d4cd0ca87",
+                "shasum": null
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/nkovacs-bootstrap-datetimepicker",
+            "version": "5.0.4",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:nkovacs/bootstrap-datetimepicker.git",
+                "reference": "c7cae4e1ddcc56c42135f117bba15112f18a8c77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nkovacs/bootstrap-datetimepicker/zipball/c7cae4e1ddcc56c42135f117bba15112f18a8c77",
+                "reference": "c7cae4e1ddcc56c42135f117bba15112f18a8c77",
+                "shasum": null
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8.3",
+                "bower-asset/moment": ">=2.9.0"
+            },
+            "type": "bower-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "bower-asset/smalot-bootstrap-datetimepicker",
+            "version": "2.4.4",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:smalot/bootstrap-datetimepicker.git",
+                "reference": "32143c8b45575e51c92a8e29997cbe556d1bbba3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smalot/bootstrap-datetimepicker/zipball/32143c8b45575e51c92a8e29997cbe556d1bbba3",
+                "reference": "32143c8b45575e51c92a8e29997cbe556d1bbba3",
+                "shasum": null
+            },
+            "type": "bower-asset"
         },
         {
             "name": "bower-asset/typeahead.js",
@@ -1160,6 +1386,106 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v1.8.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/0cafe6376780cedcd00f52c9d82b172d5851f6b0",
+                "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2-bootstrap": "@dev"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-09-29T06:18:14+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-widget-datetimepicker",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-datetimepicker.git",
+                "reference": "e843520aca008dc0807aa7ea99bfab2cc03c9a3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datetimepicker/zipball/e843520aca008dc0807aa7ea99bfab2cc03c9a3c",
+                "reference": "e843520aca008dc0807aa7ea99bfab2cc03c9a3c",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\datetime\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Enhanced Yii2 wrapper for the bootstrap datetimepicker plugin (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-datetimepicker",
+            "keywords": [
+                "datetime",
+                "extension",
+                "form",
+                "jquery",
+                "picker",
+                "plugin",
+                "select2",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-06-08T05:53:28+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.7.0",
             "source": {
@@ -1203,6 +1529,51 @@
                 "object graph"
             ],
             "time": "2017-10-19T19:58:43+00:00"
+        },
+        {
+            "name": "nkovacs/yii2-datetimepicker",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nkovacs/yii2-datetimepicker.git",
+                "reference": "ea99923f6851ef7e4224f9fd4411df048d97275e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nkovacs/yii2-datetimepicker/zipball/ea99923f6851ef7e4224f9fd4411df048d97275e",
+                "reference": "ea99923f6851ef7e4224f9fd4411df048d97275e",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/nkovacs-bootstrap-datetimepicker": "~5.0",
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "^2.0.4",
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nkovacs\\datetimepicker\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikola Kovacs",
+                    "email": "nikola.kovacs@gmail.com"
+                }
+            ],
+            "description": "Bootstrap datetimepicker widget for Yii 2, based on Eonasdan/bootstrap-datetimepicker.",
+            "keywords": [
+                "DateTimePicker",
+                "bootstrap",
+                "extension",
+                "yii2"
+            ],
+            "time": "2017-03-28T08:57:15+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -3059,6 +3430,51 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
+        },
+        {
+            "name": "trntv/yii2-datetime-widget",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/trntv/yii2-datetime-widget.git",
+                "reference": "9f636a202494b28caeedb8a96708b57af1217b98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/trntv/yii2-datetime-widget/zipball/9f636a202494b28caeedb8a96708b57af1217b98",
+                "reference": "9f636a202494b28caeedb8a96708b57af1217b98",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/eonasdan-bootstrap-datetimepicker": "^4.17",
+                "bower-asset/moment": "^2.21",
+                "yiisoft/yii2": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "trntv\\yii\\datetime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Terentev",
+                    "email": "eugene@terentev.net"
+                }
+            ],
+            "description": "Date/Time Picker widget for Yii2 framework",
+            "keywords": [
+                "bootstrap",
+                "datetime picker",
+                "extension",
+                "widget",
+                "yii2"
+            ],
+            "time": "2018-03-17T15:18:47+00:00"
         },
         {
             "name": "webmozart/assert",
