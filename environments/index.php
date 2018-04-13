@@ -34,6 +34,10 @@ return [
         'setWritable' => [
             'backend/runtime',
             'backend/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'teacher/runtime',
+            'teacher/web/assets',
             'frontend/runtime',
             'frontend/web/assets',
         ],
@@ -43,6 +47,8 @@ return [
         ],
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
+            'admin/config/main-local.php',
+            'teacher/config/main-local.php',
             'frontend/config/main-local.php',
         ],
     ],
@@ -51,6 +57,10 @@ return [
         'setWritable' => [
             'backend/runtime',
             'backend/web/assets',
+            'admin/runtime',
+            'admin/web/assets',
+            'teacher/runtime',
+            'teacher/web/assets',
             'frontend/runtime',
             'frontend/web/assets',
         ],
@@ -59,6 +69,8 @@ return [
         ],
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
+            'admin/config/main-local.php',
+            'teacher/config/main-local.php',
             'frontend/config/main-local.php',
         ],
     ],
