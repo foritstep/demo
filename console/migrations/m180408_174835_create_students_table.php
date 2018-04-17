@@ -26,7 +26,6 @@ class m180408_174835_create_students_table extends Migration
             'group_id' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
             'email' => $this->string()->notNull()->unique(),
-            'password' => $this->string()->notNull(),
         ], $tableOptions);
 
         // creates index for column `group_id`

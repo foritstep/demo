@@ -22,7 +22,6 @@ class m180406_124224_create_teachers_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'email' => $this->string()->notNull(),
-            'password' => $this->string()->notNull(),
         ], $tableOptions);
     }
 
