@@ -10,13 +10,17 @@ use yii\widgets\ActiveForm;
 
 <div class="lessons-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'theme')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'homework')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file')->textInput(['maxlength' => true]) ?>
+    <?php if($model->file) { ?>
+        <a href="<?= $model->getUploadedFileUrl('file') ?>" download="<?= $model->file; ?>">Скачать задание</a>
+    <?php } ?>
+
+    <?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'date')->widget(
         dosamigos\datepicker\DatePicker::className(), [
@@ -24,8 +28,8 @@ use yii\widgets\ActiveForm;
             'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
             'clientOptions' => [
                 'autoclose' => true,
-                'format' => 'dd-M-yyyy'
-            ]
+                'format' => 'yyyy-mm-dd'
+            ],
     ]); ?>
 
     <div class="form-group">

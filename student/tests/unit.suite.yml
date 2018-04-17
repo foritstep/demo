@@ -1,0 +1,2 @@
+suite_namespace: student\tests\unit
+actor: UnitTester

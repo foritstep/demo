@@ -42,7 +42,7 @@ $this->title = 'My Yii Application';
                 'template' => '{addon}{input}',
                     'clientOptions' => [
                         'autoclose' => true,
-                        'format' => 'dd-M-yyyy'
+                        'format' => 'yyyy-mm-dd'
                     ]
             ]); ?>
         </div>

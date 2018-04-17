@@ -1,7 +1,7 @@
 $(function () {
     data_array = data_array.map((i) => (i.time = new Date(i.time), i) );
     
-    format = (d) => d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+    format = (d) => d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 
     $('#calendar').datepicker({
         inline: true,

@@ -19,6 +19,8 @@ use Yii;
  */
 class Lessons extends \yii\db\ActiveRecord
 {
+    public $h_id, $mark, $h_file, $h_date;
+    
     /**
      * @inheritdoc
      */
@@ -36,21 +38,8 @@ class Lessons extends \yii\db\ActiveRecord
             [['course_id', 'theme', 'homework', 'date'], 'required'],
             [['course_id'], 'integer'],
             [['date'], 'safe'],
-            [['theme', 'homework'], 'string', 'max' => 255],
+            [['theme', 'homework', 'file'], 'string', 'max' => 255],
             [['course_id'], 'exist', 'skipOnError' => true, 'targetClass' => Courses::className(), 'targetAttribute' => ['course_id' => 'id']],
-            [['file'], 'file', 'skipOnEmpty' => true],
-        ];
-    }
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => '\yiidreamteam\upload\FileUploadBehavior',
-                'attribute' => 'file',
-                'filePath' => '@webroot/../../uploads/lessons/[[pk]].[[extension]]',
-                'fileUrl' => '../../uploads/lessons/[[pk]].[[extension]]',
-            ],
         ];
     }
 
@@ -62,10 +51,10 @@ class Lessons extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'course_id' => 'Course ID',
-            'theme' => 'Тема',
-            'homework' => 'Домашнее задание',
-            'file' => 'Файл',
-            'date' => 'Дата',
+            'theme' => 'Theme',
+            'homework' => 'Homework',
+            'file' => 'File',
+            'date' => 'Date',
         ];
     }
 

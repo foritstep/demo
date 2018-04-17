@@ -62,7 +62,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->view->registerJs('email_0000 = "' . Yii::$app->user->identity->email . '";');
         $teacher = Teachers::find()->where([
             'email' => Yii::$app->user->identity->email
         ])->one();

@@ -27,7 +27,7 @@ class m180408_175507_create_homeworks_table extends Migration
             'lesson_id' => $this->integer()->notNull(),
             'student_id' => $this->integer()->notNull(),
             'file' => $this->string()->notNull(),
-            'mark' => $this->string()->notNull(),
+            'mark' => $this->integer(),
             'date' => $this->date()->notNull(),
         ], $tableOptions);
 
