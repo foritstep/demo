@@ -71,6 +71,24 @@ class LoginForm extends Model
         }
     }
 
+    public function loginTeacher()
+    {
+        if ($this->validate() && User::isUserTeacher($this->username)) {
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        } else {
+            return false;
+        }
+    }
+
+    public function loginAdmin()
+    {
+        if ($this->validate() && User::isUserAdmin($this->username)) {
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Finds user by [[username]]
      *
@@ -79,7 +97,7 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByEmail($this->username);
         }
 
         return $this->_user;
