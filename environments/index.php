@@ -36,6 +36,8 @@ return [
             'backend/web/assets',
             'admin/runtime',
             'admin/web/assets',
+            'student/runtime',
+            'student/web/assets',
             'teacher/runtime',
             'teacher/web/assets',
             'frontend/runtime',
@@ -48,6 +50,7 @@ return [
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
             'admin/config/main-local.php',
+            'student/config/main-local.php',
             'teacher/config/main-local.php',
             'frontend/config/main-local.php',
         ],
@@ -59,6 +62,8 @@ return [
             'backend/web/assets',
             'admin/runtime',
             'admin/web/assets',
+            'student/runtime',
+            'student/web/assets',
             'teacher/runtime',
             'teacher/web/assets',
             'frontend/runtime',
@@ -70,6 +75,7 @@ return [
         'setCookieValidationKey' => [
             'backend/config/main-local.php',
             'admin/config/main-local.php',
+            'student/config/main-local.php',
             'teacher/config/main-local.php',
             'frontend/config/main-local.php',
         ],
