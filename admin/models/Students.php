@@ -18,6 +18,8 @@ use Yii;
  */
 class Students extends \yii\db\ActiveRecord
 {
+    public $password;
+    
     /**
      * @inheritdoc
      */

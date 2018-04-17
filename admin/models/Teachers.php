@@ -16,6 +16,8 @@ use Yii;
  */
 class Teachers extends \yii\db\ActiveRecord
 {
+    public $password;
+    
     /**
      * @inheritdoc
      */
@@ -32,6 +34,11 @@ class Teachers extends \yii\db\ActiveRecord
         return [
             [['name', 'email', 'password'], 'required'],
             [['name', 'email', 'password'], 'string', 'max' => 255],
+            ['email', 'trim'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Этот почтовый ящик уже используется'],
+            ['password', 'string', 'min' => 6],
         ];
     }
 

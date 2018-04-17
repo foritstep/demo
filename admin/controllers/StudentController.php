@@ -4,6 +4,7 @@ namespace admin\controllers;
 
 use Yii;
 use app\models\Students;
+use common\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -78,6 +79,13 @@ class StudentController extends Controller
         $model = new Students();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $user = new User();
+            $user->username = $model->name;
+            $user->email = $model->email;
+            $user->setPassword($model->password);
+            $user->generateAuthKey();
+            $user->role = User::ROLE_STUDENT;
+            $user->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
