@@ -6,27 +6,27 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Список классов';
+$this->title = 'Результаты экзаменов';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="classrooms-index">
+<div class="exams-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Classrooms', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'description',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'course_id',
+                'label' => 'Курс',
+                'format'    => 'raw',
+                'value'     => function ($model) {
+                    return $model->getCourse()->one()->name;
+                },
+            ],
+            'mark',
         ],
     ]); ?>
 </div>

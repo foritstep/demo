@@ -10,6 +10,10 @@ $this->title = 'My Yii Application';
     <div class="body-content">
         <h2>Задания</h2>
 
+        <p>
+            <?= yii\helpers\Html::a('Результаты экзаменов', ['exam'], ['class' => 'btn btn-success']) ?>
+        </p>
+
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
@@ -17,7 +21,10 @@ $this->title = 'My Yii Application';
                 'homework',
                 'file',
                 'date',
-                'mark',
+                [
+                    'attribute' => 'mark',
+                    'label' => 'Оценка'
+                ],
                 [
                     'attribute' => 'h_file',
                     'label' => 'Файл',

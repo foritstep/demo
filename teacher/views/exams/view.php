@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Lessons */
+/* @var $model app\models\Exams */
 
-$this->title = 'Информация об уроке';
-$this->params['breadcrumbs'][] = ['label' => 'Lessons', 'url' => ['index']];
+$this->title = 'Результаты экзамена';
+$this->params['breadcrumbs'][] = ['label' => 'Exams', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="lessons-view">
+<div class="exams-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,22 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            [
-                'attribute' => 'course_id',
-                'value' => function ($model) {
-                    return $model->getCourse()->one()->name;
-                },
-            ],
-            'theme',
-            'homework',
-            [
-                'attribute' => 'file',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return $this->render('file', ['model' => $model]);
-                },
-            ],
-            'date',
+            'course_id',
+            'student_id',
+            'mark',
         ],
     ]) ?>
 

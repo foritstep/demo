@@ -51,10 +51,10 @@ class Lessons extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'course_id' => 'Course ID',
-            'theme' => 'Theme',
-            'homework' => 'Homework',
-            'file' => 'File',
-            'date' => 'Date',
+            'theme' => 'Тема',
+            'homework' => 'Домашнее задание',
+            'file' => 'Файл',
+            'date' => 'Задано',
         ];
     }
 

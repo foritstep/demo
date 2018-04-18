@@ -6,7 +6,7 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Courses';
+$this->title = 'Курсы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="courses-index">
@@ -23,9 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'group_id',
+            [
+                'attribute' => 'group_id',
+                'value' => function ($model) {
+                    return $model->getGroup()->one()->name;
+                },
+            ],
             'name',
-            'teacher_id',
+            [
+                'attribute' => 'teacher_id',
+                'value' => function ($model) {
+                    return $model->getTeacher()->one()->name;
+                },
+            ],
             'quantity',
             'begin',
 

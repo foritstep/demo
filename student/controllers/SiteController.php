@@ -1,6 +1,7 @@
 <?php
 namespace student\controllers;
 
+use app\models\Exams;
 use app\models\Students;
 use app\models\Lessons;
 use app\models\Homeworks;
@@ -32,7 +33,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'upload', 'delete'],
+                        'actions' => ['logout', 'index', 'upload', 'delete', 'exam'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -132,6 +133,21 @@ class SiteController extends Controller
             $homework->delete();
         }
         return $this->redirect(['index']);
+    }
+
+    public function actionExam()
+    {
+        $student = Students::find()->where([
+            'email' => Yii::$app->user->identity->email
+        ])->one();
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => Exams::find()->where(['student_id' => $student->id]),
+        ]);
+
+        return $this->render('exams', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

@@ -68,7 +68,7 @@ class SiteController extends Controller
         $courses = Courses::find()->where([
             'teacher_id' => $teacher->id,
         ])->all();
-        
+
         $acc = [];
         foreach($courses as $i) {
             $acc = array_merge($acc, $this->createCalendar($i));
@@ -89,7 +89,7 @@ class SiteController extends Controller
             foreach($schedules as $i) {
                 $days[$i->day != 7 ? $i->day : 0]++;
             }
-            
+
             $day = date_create($course->begin);
             $i = (int)date('w', date_timestamp_get($day));
             $i == 7 and $init = 0;
@@ -108,6 +108,14 @@ class SiteController extends Controller
             }
         }
         return $acc;
+    }
+
+    public function actionHomework($id = 0) {
+        if(!$id) {
+            return $this->render('select');
+        } else {
+
+        }
     }
 
     /**

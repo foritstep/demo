@@ -27,7 +27,7 @@ class CourseController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'schedule', 'intersect'],
+                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'schedule', 'intersect', 'test'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -166,4 +166,92 @@ class CourseController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    // #->
+    function group1($arr, $key) {
+        $acc = [];
+        foreach($arr as $i) {
+            $acc[$i[$key]][] = $i;
+        }
+        return $acc;
+    }
+    
+    function group2($arr, $key) {
+        $acc = [];
+        foreach($arr as $k => $v) {
+            $acc[$k] = $this->group1($v, $key);
+        }
+        return $acc;
+    }
+    
+    function group3($arr, $key) {
+        $acc = [];
+        foreach($arr as $k => $v) {
+            $acc[$k] = $this->group2($v, $key);
+        }
+        return $acc;
+    }
+    
+    function search($d, $key) {
+        $d = $this->group3($d, $key);
+        $i = [];
+        
+        foreach($d as $l0) {
+            foreach($l0 as $l1) {
+                foreach($l1 as $l2) {
+                    count($l2) > 1 and $i[] = $l2;
+                }
+            }
+        }
+        return $i;
+    }
+    
+    public function actionTest()
+    {
+        $all = [];
+        foreach(Courses::find()->all() as $i) {
+            $all = array_merge($all, $this->test($i));
+        }
+
+        $all = $this->group1($all, 'date');
+        $all = $this->group2($all, 'number');
+
+        return json_encode($this->search($all, 'classroom'));
+    }
+
+    public function test($course)
+    {
+        $acc = [];
+        if($schedules = $course->getSchedules()->orderBy('`day`, `number`')->all()) {
+            $days = array_fill(0, 7, []);
+            foreach($schedules as $i) {
+                $days[$i->day != 7 ? $i->day : 0][] = $i;
+            }
+
+            $day = date_create($course->begin);
+            $i = (int)date('w', date_timestamp_get($day));
+            $i == 7 and $init = 0;
+
+            $number = $course->quantity;
+
+            for(; $number > 0; $i < 6 and ++$i or $i = 0) {
+                foreach($days[$i] as $s) {
+                    if($number--) {
+                        $acc[] = [
+                            'date' => $day->format('Y-m-d'),
+                            'number' => $s->number,
+                            'teacher' => $course->teacher_id,
+                            'classroom' => $s->classroom_id,
+                            'course' => $s->course_id,
+                            'group' => $course->group_id,
+                        ];
+                    }
+                }
+                $day->add(new \DateInterval('P1D'));
+            }
+        }
+        return $acc;
+    }
+
+    // <-#    
 }

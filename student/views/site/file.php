@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin(['action' => ['upload', 'id' => $model->id], 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    <?= $form->field(new \app\models\UploadForm(), 'file')->fileInput() ?>
+    <?= $form->field(new \app\models\UploadForm(), 'file')->fileInput()->label(false) ?>
     <a onclick='this.parentNode.submit(); return false;'><i class="glyphicon glyphicon-upload"></i></a>
 <?php ActiveForm::end(); ?>
 <?php if($model->h_file) { 
