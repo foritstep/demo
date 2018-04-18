@@ -28,6 +28,7 @@ class m180408_174822_create_courses_table extends Migration
             'name' => $this->string()->notNull(),
             'teacher_id' => $this->integer()->notNull(),
             'quantity' => $this->integer()->notNull(),
+            'begin' => $this->date()->notNull(),
         ], $tableOptions);
 
         // creates index for column `group_id`

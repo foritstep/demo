@@ -39,6 +39,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quantity')->textInput() ?>
 
+    <?= $form->field($model, 'begin')->widget(dosamigos\datepicker\DatePicker::className(), [
+        'inline' => true,
+        'language' => 'ru',
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]); ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

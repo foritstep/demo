@@ -24,9 +24,7 @@ $this->title = 'My Yii Application';
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Аудитория</th>
                         <th scope="col">Курс</th>
-                        <th scope="col">Время</th>
                         <th scope="col">Группа</th>
                         <th scope="col"></th>                    
                     </tr>

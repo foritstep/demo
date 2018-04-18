@@ -3,7 +3,9 @@
 namespace teacher\controllers;
 
 use Yii;
+use app\models\Courses;
 use app\models\Lessons;
+use app\models\Teachers;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,11 +27,7 @@ class LessonsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'remove'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -39,6 +37,7 @@ class LessonsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'remove' => ['POST'],
                 ],
             ],
         ];
@@ -48,15 +47,32 @@ class LessonsController extends Controller
      * Lists all Lessons models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = 0)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Lessons::find(),
-        ]);
+        if(!$id) {
+            $id = Yii::$app->request->cookies->getValue('course_id');
+            if(!$id) {
+                return $this->redirect(['site/index']);
+            }
+        } else {
+            Yii::$app->response->cookies->add(new \yii\web\Cookie(['name' => 'course_id', 'value' => $id,]));
+        }
+        $teacher = Teachers::find()->where([
+            'email' => Yii::$app->user->identity->email
+        ])->one();
+        if($course = Courses::find()->where(['teacher_id' => $teacher->id, 'id' => $id])->one()) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Lessons::find()->where(['course_id' => $course->id]),
+            ]);
+            $this->view->registerCss("form { display: inline; }");
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'course' => $course,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -67,6 +83,8 @@ class LessonsController extends Controller
      */
     public function actionView($id)
     {
+
+        $this->view->registerCss("form { display: inline; }");
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -123,6 +141,17 @@ class LessonsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionRemove($id)
+    {
+        $model = $this->findModel($id);
+        @unlink("../../uploads/lessons/$model->id." . pathinfo($model->file, PATHINFO_EXTENSION));
+        $model->file = "";
+        $model->remove_file = true;
+        $model->save();
 
         return $this->redirect(['index']);
     }

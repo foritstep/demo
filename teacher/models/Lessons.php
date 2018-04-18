@@ -84,4 +84,15 @@ class Lessons extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Courses::className(), ['id' => 'course_id']);
     }
+
+    public $remove_file;
+
+    public function beforeSave($insert)
+    {
+        if(!$this->remove_file) {
+            parent::beforeSave($insert);
+        } else {
+            return true;
+        }
+    }
 }

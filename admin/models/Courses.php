@@ -13,6 +13,7 @@ use Yii;
  * @property string $name
  * @property int $teacher_id
  * @property int $quantity
+ * @property string $begin
  *
  * @property Groups $group
  * @property Teachers $teacher
@@ -101,8 +102,9 @@ class Courses extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['group_id', 'name', 'teacher_id', 'quantity'], 'required'],
+            [['group_id', 'name', 'teacher_id', 'quantity', 'begin'], 'required'],
             [['group_id', 'teacher_id', 'quantity'], 'integer'],
+            [['begin'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => Groups::className(), 'targetAttribute' => ['group_id' => 'id']],
             [['teacher_id'], 'exist', 'skipOnError' => true, 'targetClass' => Teachers::className(), 'targetAttribute' => ['teacher_id' => 'id']],
@@ -120,6 +122,7 @@ class Courses extends \yii\db\ActiveRecord
             'name' => 'Название',
             'teacher_id' => 'Teacher ID',
             'quantity' => 'Количество занятий',
+            'begin' => 'Начало занятий',
         ];
     }
 

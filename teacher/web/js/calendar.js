@@ -19,13 +19,11 @@ $(function () {
         for(var i = 0; i < data_array.length; i++) {
             if(format(e.date) == format(data_array[i].time)) {
                 tr = $('<tr>').appendTo('#description-wrapper');
-                $('<th>', { text: data_array[i].classroom }).appendTo($(tr));
-                $('<th>', { text: data_array[i].name }).appendTo($(tr));
-                $('<th>', { text: '' }).appendTo($(tr));
+                $('<th>', { text: data_array[i].course }).appendTo($(tr));
                 $('<th>', { text: data_array[i].group }).appendTo($(tr));
                 $('<a>', { 
-                    href: link_to_lesson + data_array[i].course + "&date=" + format(data_array[i].time),
-                    text: 'Добавить занятие',
+                    href: link_to_lesson + data_array[i].id,
+                    text: 'Перейти к занятиям',
                     class: 'btn btn-primary'
                 }).appendTo($('<th>')).parent().appendTo($(tr));
             }

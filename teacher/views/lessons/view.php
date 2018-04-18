@@ -32,7 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'course_id',
             'theme',
             'homework',
-            'file',
+            [
+                'attribute' => 'file',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $this->render('file', ['model' => $model]);
+                },
+            ],
             'date',
         ],
     ]) ?>

@@ -65,42 +65,49 @@ class SiteController extends Controller
         $teacher = Teachers::find()->where([
             'email' => Yii::$app->user->identity->email
         ])->one();
-        $data = Courses::find()->where([
+        $courses = Courses::find()->where([
             'teacher_id' => $teacher->id,
         ])->all();
         
         $acc = [];
-        foreach($data as $i) {
-            $time = new \DateTime();
-            $schedules = $i->getSchedules();
-            $schedules = $schedules->orderBy('`day`, number');
-            $schedules = $schedules->all();
-            if($schedules) {
-                for($j = 0; $j < $i->quantity;) {
-                    foreach($schedules as $s) {
-                        $p = 'P' . $s->day . 'D';
-                        $acc[] = [
-                            'name' => $i->name,
-                            'time' => (clone $time)->add(new \DateInterval($p))->format('Y-m-d'),
-                            'classroom' => $s->getClassroom()->one()->name,
-                            'group' => $i->getGroup()->one()->name,
-                            'course' => $i->id,
-                        ];
-                        $j++;
-                    }
-                    $time = $time->add(new \DateInterval('P7D'));
-                }
-            }
+        foreach($courses as $i) {
+            $acc = array_merge($acc, $this->createCalendar($i));
         }
         $this->view->registerJs("data_array = JSON.parse('" . json_encode($acc) . "');" .
-            "link_to_lesson = '" . \yii\helpers\Url::to(['lessons/create', 'id' => '']) . "';"
+            "link_to_lesson = '" . \yii\helpers\Url::to(['lessons/index', 'id' => '']) . "';"
         );
         $this->view->registerJs($this->renderPartial('../../web/js/calendar.js'));
         $this->view->registerCss($this->renderPartial('../../web/css/calendar.css'));
 
-        return $this->render('index', [
-            'data' => $data,
-        ]);
+        return $this->render('index');
+    }
+
+    public function createCalendar($course) {
+        $acc = [];
+        if($schedules = $course->getSchedules()->orderBy('`day`, `number`')->all()) {
+            $days = array_fill(0, 7, 0);
+            foreach($schedules as $i) {
+                $days[$i->day != 7 ? $i->day : 0]++;
+            }
+            
+            $day = date_create($course->begin);
+            $i = (int)date('w', date_timestamp_get($day));
+            $i == 7 and $init = 0;
+
+            $number = $course->quantity;
+
+            for(; $number > 0; $i < 6 and ++$i or $i = 0) {
+                $number -= $days[$i];
+                $days[$i] and $acc[] = [
+                    'id' => $course->id,
+                    'time' => $day->format('Y-m-d'),
+                    'course' => $course->name,
+                    'group' => $course->getGroup()->one()->name,
+                ];
+                $day->add(new \DateInterval('P1D'));
+            }
+        }
+        return $acc;
     }
 
     /**
