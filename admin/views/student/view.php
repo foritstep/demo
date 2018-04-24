@@ -28,11 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'group_id',
+            [
+                'attribute' => 'group_id',
+                'label' => 'Группа',
+                'value' => function($model) {
+                    return $model->getGroup()->one()->name;
+                }
+            ],
             'name',
             'email:email',
-            'password',
         ],
     ]) ?>
 

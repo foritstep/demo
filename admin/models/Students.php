@@ -49,10 +49,10 @@ class Students extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'group_id' => 'Group ID',
-            'name' => 'Name',
+            'group_id' => 'Группа',
+            'name' => 'Имя',
             'email' => 'Email',
-            'password' => 'Password',
+            'password' => 'Пароль',
         ];
     }
 

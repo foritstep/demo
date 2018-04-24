@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Students', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить ученика', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -22,11 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'group_id',
+            [
+                'attribute' => 'group_id',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->getGroup()->one()->name;
+                },
+            ],
             'name',
             'email:email',
-            'password',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

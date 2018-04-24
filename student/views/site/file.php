@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 <?php ActiveForm::end(); ?>
 <?php if($model->h_file) { 
     $form = ActiveForm::begin(['action' => ['delete', 'id' => $model->id], 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    <a href="/uploads/homeworks/<?= $student_id . '-' . $model->h_id . '.' . pathinfo($model->h_file, PATHINFO_EXTENSION) ?>" download="<?= $model->h_file ?>"><i class="glyphicon glyphicon-download"></i></a>
+    <a href="/uploads/homeworks/<?= $model->h_id . '-' . $student_id . '.' . pathinfo($model->h_file, PATHINFO_EXTENSION) ?>" download="<?= $model->h_file ?>"><i class="glyphicon glyphicon-download"></i></a>
     <a onclick='this.parentNode.submit(); return false;'><i class="glyphicon glyphicon-remove"></i></a>
 <?php
 ActiveForm::end();

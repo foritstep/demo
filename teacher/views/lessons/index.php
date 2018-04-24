@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить урок', ['create', 'id' => $course->id, 'date' => date('Y-m-d', time())], ['class' => 'btn btn-success']) ?>
     </p>
     <?php } ?>
+    <?= Html::a('Экзамены', ['exams/index', 'id' => $course->id], ['class' => 'btn btn-success']) ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

@@ -27,7 +27,7 @@ class LessonsController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'remove'],
+                        'actions' => ['index', 'create', 'view', 'update', 'delete', 'remove', 'homework', 'mark'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -154,6 +154,44 @@ class LessonsController extends Controller
         $model->save();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionHomework($id = 0) {
+        if(!$id) {
+            $id = Yii::$app->request->cookies->getValue('homework_id');
+            if(!$id) {
+                return $this->redirect(['site/index']);
+            }
+        } else {
+            Yii::$app->response->cookies->add(new \yii\web\Cookie(['name' => 'homework_id', 'value' => $id,]));
+        }
+        $lesson = Lessons::find()->where(['id' => $id])->one();
+        $teacher = Teachers::find()->where([
+            'email' => Yii::$app->user->identity->email
+        ])->one();
+        if($lesson->getCourse()->one()->teacher_id == $teacher->id) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => $lesson->getHomeworks(),
+            ]);
+
+            return $this->render('homeworks', [
+                'homeworks' => $dataProvider,
+            ]);
+        } else {
+            return $this->redirect(['index']);
+        }
+    }
+
+    public function actionMark($student, $lesson) {
+        $homework = \app\models\Homeworks::find()->where(['student_id' => $student, 'lesson_id' => $lesson])->one();
+        $teacher = Teachers::find()->where([
+            'email' => Yii::$app->user->identity->email
+        ])->one();
+        if($homework && $homework->getLesson()->one()->getCourse()->one()->getTeacher()->one()->id == $teacher->id) {
+            $homework->mark = $_POST['Homeworks']['mark'];
+            $homework->save();
+        }
+        return $this->redirect(['homework']);
     }
 
     /**

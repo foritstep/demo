@@ -7,6 +7,7 @@ use app\models\Courses;
 use app\models\Schedules;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -122,7 +123,7 @@ class CourseController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionSchedule($id) {        
+    public function actionSchedule($id) {
         $model = $this->findModel($id);
 
         if(Yii::$app->request->post()) {
@@ -130,21 +131,39 @@ class CourseController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $this->view->registerJs("test_path = '" . Url::to(['test', 'id' => $id]) . "';");
+        $this->view->registerJsFile("@web/js/intersect.js");
+
         return $this->render('schedule', [
             'model' => $model,
         ]);
     }
 
     public static function intersect() {
-        if($data = Courses::intersect()) {
-            Yii::$app->session->setFlash('error', 
-                Html::a("Пересечение графиков", ['intersect'])
+        if(count(CourseController::createList())) {
+            Yii::$app->session->setFlash('error',
+                Html::a("Пересечение графиков", ['course/intersect'])
             );
         }
     }
 
     public function actionIntersect() {
-        $data = Courses::intersect();
+        $raw = CourseController::createList();
+        $data = [];
+
+        foreach($raw as $l0) {
+            foreach($l0 as $i) {
+                $data[] = [
+                    'date' => $i['date'],
+                    'number' => $i['number'],
+                    'classroom' => \app\models\Classrooms::find(['id' => $i['classroom']])->one()->name,
+                    'classroom_id' => $i['classroom'],
+                    'course' => Courses::find(['id' => $i['course']])->one()->name,
+                    'course_id' => $i['course'],
+                    'group_id' => $i['group'],
+                ];
+            }
+        }
 
         return $this->render('intersect', [
             'data' => $data,
@@ -175,54 +194,65 @@ class CourseController extends Controller
         }
         return $acc;
     }
-    
+
     function group2($arr, $key) {
         $acc = [];
         foreach($arr as $k => $v) {
-            $acc[$k] = $this->group1($v, $key);
+            $acc[$k] = CourseController::group1($v, $key);
         }
         return $acc;
     }
-    
+
     function group3($arr, $key) {
         $acc = [];
         foreach($arr as $k => $v) {
-            $acc[$k] = $this->group2($v, $key);
+            $acc[$k] = CourseController::group2($v, $key);
         }
         return $acc;
     }
-    
+
     function search($d, $key) {
-        $d = $this->group3($d, $key);
+        $d = CourseController::group3($d, $key);
         $i = [];
-        
+
         foreach($d as $l0) {
             foreach($l0 as $l1) {
                 foreach($l1 as $l2) {
-                    count($l2) > 1 and $i[] = $l2;
+                    if(count($l2) > 1){
+                        $i[] = $l2;
+                    }
                 }
             }
         }
         return $i;
     }
-    
-    public function actionTest()
-    {
+
+    public function createList($id = 0, $schedules = "") {
         $all = [];
+        $schedules = json_decode($schedules);
         foreach(Courses::find()->all() as $i) {
-            $all = array_merge($all, $this->test($i));
+            if($i->id == $id) {
+                $all = array_merge($all, CourseController::test($i, $schedules));
+            } else {
+                $all = array_merge($all, CourseController::test($i));
+            }
         }
 
-        $all = $this->group1($all, 'date');
-        $all = $this->group2($all, 'number');
+        $all = CourseController::group1($all, 'date');
+        $all = CourseController::group2($all, 'number');
 
-        return json_encode($this->search($all, 'classroom'));
+        return CourseController::search($all, 'classroom');
     }
 
-    public function test($course)
+    public function actionTest($id, $schedules)
+    {
+        return json_encode(CourseController::createList($id, $schedules));
+    }
+
+    public function test($course, $schedules = [])
     {
         $acc = [];
-        if($schedules = $course->getSchedules()->orderBy('`day`, `number`')->all()) {
+        if($schedules or $schedules = $course->getSchedules()->orderBy('`day`, `number`')->all()) {
             $days = array_fill(0, 7, []);
             foreach($schedules as $i) {
                 $days[$i->day != 7 ? $i->day : 0][] = $i;
@@ -242,7 +272,7 @@ class CourseController extends Controller
                             'number' => $s->number,
                             'teacher' => $course->teacher_id,
                             'classroom' => $s->classroom_id,
-                            'course' => $s->course_id,
+                            'course' => $course->id,
                             'group' => $course->group_id,
                         ];
                     }
@@ -253,5 +283,5 @@ class CourseController extends Controller
         return $acc;
     }
 
-    // <-#    
+    // <-#
 }

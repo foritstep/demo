@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'homework')->textInput(['maxlength' => true]) ?>
 
     <?php if($model->file) { ?>
-        <a href="<?= $model->getUploadedFileUrl('file') ?>" download="<?= $model->file; ?>">Скачать задание</a>
+        <a href="/uploads/lessons/<?= $model->id . '.' . pathinfo($model->file, PATHINFO_EXTENSION) ?>" download="<?= $model->file; ?>">Скачать задание</a>
     <?php } ?>
 
     <?= $form->field($model, 'file')->fileInput() ?>

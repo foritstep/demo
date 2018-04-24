@@ -90,7 +90,7 @@ class Lessons extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if(!$this->remove_file) {
-            parent::beforeSave($insert);
+            return parent::beforeSave($insert);
         } else {
             return true;
         }

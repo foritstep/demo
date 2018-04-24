@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 function table_column($x, $y, $model, $form) { ?>
     <th>
-        <select data-width="100%" class="selectpicker" data-live-search="true" name="arr[<?= $x ?>][<?= $y ?>]">
+        <select data-width="100%" class="selectpicker" data-live-search="true" name="arr[<?= $x ?>][<?= $y ?>]" onchange="test_schedule()">
             <option value="0">--------------</option>
             <?php
                 foreach(Classrooms::find()->all() as $i) { ?>
@@ -25,6 +25,7 @@ function table_column($x, $y, $model, $form) { ?>
 
 <div class="courses-form">
     <h2>Расписание</h2>
+    <div id="alert" class="alert-danger alert fade in" style="display: none;">Пересечение занятий</div>
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="form-group">
