@@ -140,7 +140,7 @@ class CourseController extends Controller
     }
 
     public static function intersect() {
-        if(count(CourseController::createList())) {
+        if(count(static::createList())) {
             Yii::$app->session->setFlash('error',
                 Html::a("Пересечение графиков", ['course/intersect'])
             );
@@ -148,7 +148,7 @@ class CourseController extends Controller
     }
 
     public function actionIntersect() {
-        $raw = CourseController::createList();
+        $raw = static::createList();
         $data = [];
 
         foreach($raw as $l0) {
@@ -156,9 +156,9 @@ class CourseController extends Controller
                 $data[] = [
                     'date' => $i['date'],
                     'number' => $i['number'],
-                    'classroom' => \app\models\Classrooms::find(['id' => $i['classroom']])->one()->name,
+                    'classroom' => \app\models\Classrooms::find()->where(['id' => $i['classroom']])->one()->name,
                     'classroom_id' => $i['classroom'],
-                    'course' => Courses::find(['id' => $i['course']])->one()->name,
+                    'course' => Courses::find()->where(['id' => $i['course']])->one()->name,
                     'course_id' => $i['course'],
                     'group_id' => $i['group'],
                 ];
@@ -198,7 +198,7 @@ class CourseController extends Controller
     function group2($arr, $key) {
         $acc = [];
         foreach($arr as $k => $v) {
-            $acc[$k] = CourseController::group1($v, $key);
+            $acc[$k] = static::group1($v, $key);
         }
         return $acc;
     }
@@ -206,13 +206,13 @@ class CourseController extends Controller
     function group3($arr, $key) {
         $acc = [];
         foreach($arr as $k => $v) {
-            $acc[$k] = CourseController::group2($v, $key);
+            $acc[$k] = static::group2($v, $key);
         }
         return $acc;
     }
 
     function search($d, $key) {
-        $d = CourseController::group3($d, $key);
+        $d = static::group3($d, $key);
         $i = [];
 
         foreach($d as $l0) {
@@ -232,21 +232,21 @@ class CourseController extends Controller
         $schedules = json_decode($schedules);
         foreach(Courses::find()->all() as $i) {
             if($i->id == $id) {
-                $all = array_merge($all, CourseController::test($i, $schedules));
+                $all = array_merge($all, static::test($i, $schedules));
             } else {
-                $all = array_merge($all, CourseController::test($i));
+                $all = array_merge($all, static::test($i));
             }
         }
 
-        $all = CourseController::group1($all, 'date');
-        $all = CourseController::group2($all, 'number');
+        $all = static::group1($all, 'date');
+        $all = static::group2($all, 'number');
 
-        return CourseController::search($all, 'classroom');
+        return static::search($all, 'classroom');
     }
 
     public function actionTest($id, $schedules)
     {
-        return json_encode(CourseController::createList($id, $schedules));
+        return json_encode(static::createList($id, $schedules));
     }
 
     public function test($course, $schedules = [])
@@ -264,6 +264,11 @@ class CourseController extends Controller
 
             $number = $course->quantity;
 
+            /**
+             * данный код позволяет образовать цикл в котором
+             * i будет повторятся от 0 до 6 включительно
+             * после 6 будет идти 0
+             */ 
             for(; $number > 0; $i < 6 and ++$i or $i = 0) {
                 foreach($days[$i] as $s) {
                     if($number--) {
